@@ -1,9 +1,12 @@
 import express from "express";
 import helmet from "helmet";
+import * as dotenv from "dotenv";
 
 import releasesRouter from "./routes/releases.route";
 
 const app = express();
+dotenv.config();
+const PORT = Number(process.env.PORT);
 
 /* 
   Middlware 
@@ -16,6 +19,6 @@ app.use(express.json());
 */
 app.use("/api/releases", releasesRouter);
 
-app.listen(5555, () => {
-  console.log("Application Running at http://localhost:5555");
+app.listen(PORT, () => {
+  console.log(`[server] Application Running at http://localhost:${PORT}`);
 });
