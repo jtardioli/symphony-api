@@ -1,9 +1,10 @@
 import express from "express";
-import { createReleaseHandler } from "../controllers/releases.controller";
+import { handleCreateRelease } from "../controllers/releases.controller";
+import { createReleaseValidations } from "../validations/releases.validations";
 
 const router = express.Router();
 
 // Create
-router.post("/", createReleaseHandler);
+router.post("/", createReleaseValidations, handleCreateRelease);
 
 export default router;
