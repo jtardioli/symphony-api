@@ -7,7 +7,6 @@ export const createReleaseValidations = (
 ) => {
   try {
     if (req.body) {
-      console.log(req.body);
       if ("release" in req.body) {
         next();
         return;
