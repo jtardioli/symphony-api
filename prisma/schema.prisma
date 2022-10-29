@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String    @id @default(uuid())
+  name    String
+  Release Release[]
+  Track   Track[]
+}
+
+model Release {
+  id                String       @id @default(uuid())
+  owner             User         @relation(fields: [ownerId], references: [id])
+  ownerId           String
+  credits           String?
+  description       String?
+  image             String?
+  isDeployed        Boolean      @default(false)
+  maxNumMints       Int?
+  mintEndDateTime   BigInt?
+  mintStartDateTime BigInt?
+  mintPrice         Decimal?
+  royaltyPercentage Float?
+  releaseType       ReleaseType?
+  title             String?
+  tracks            Track[]
+  genre             Genre[]
+}
+
+model Track {
+  id         String   @id @default(uuid())
+  Release    Release? @relation(fields: [releaseId], references: [id])
+  releaseId  String?
+  audio      String?
+  owner      User     @relation(fields: [ownerId], references: [id])
+  ownerId    String
+  artistName String?
+  title      String?
+  hidden     Boolean
+}
+
+model Genre {
+  id      String    @id @default(uuid())
+  name    String
+  Release Release[]
+}
+
+enum ReleaseType {
+  ALBUM
+  EP
+  SINGLE
+}
