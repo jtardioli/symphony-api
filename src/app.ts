@@ -7,6 +7,7 @@ import * as dotenv from "dotenv";
 import "source-map-support/register";
 
 import releasesRouter from "./routes/releases.route";
+import uploadsRouter from "./routes/uploads.route";
 
 const app = express();
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(morgan("dev"));
   Routes
 */
 app.use("/api/releases", releasesRouter);
+app.use("/api/uploads", uploadsRouter);
 
 app.listen(PORT, () => {
   console.log(`[server] Application Running at http://localhost:${PORT}`);

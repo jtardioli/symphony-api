@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Release" ALTER COLUMN "mintEndDateTime" SET DATA TYPE TEXT,
+ALTER COLUMN "mintStartDateTime" SET DATA TYPE TEXT;

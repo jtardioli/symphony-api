@@ -21,13 +21,14 @@ model Release {
   id                String       @id @default(uuid())
   owner             User         @relation(fields: [ownerId], references: [id])
   ownerId           String
+  artistName        String?
   credits           String?
   description       String?
   image             String?
   isDeployed        Boolean      @default(false)
   maxNumMints       Int?
-  mintEndDateTime   BigInt?
-  mintStartDateTime BigInt?
+  mintEndDateTime   String?
+  mintStartDateTime String?
   mintPrice         Decimal?
   royaltyPercentage Float?
   releaseType       ReleaseType?
