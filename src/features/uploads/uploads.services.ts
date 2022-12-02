@@ -2,7 +2,7 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import * as dotenv from "dotenv";
 
 import { v4 as uuidv4 } from "uuid";
-import { s3 } from "../config/s3.config";
+import { s3 } from "../../config/s3.config";
 
 dotenv.config();
 const { AWS_BUCKET } = process.env;

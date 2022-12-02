@@ -1,5 +1,5 @@
 import express from "express";
-import { handleCreateRelease } from "../controllers/releases.controller";
+import { handleCreateRelease } from "./releases.controller";
 
 const router = express.Router();
 

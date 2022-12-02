@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
 import multer, { memoryStorage } from "multer";
-import { uploadToS3 } from "../config/s3.config";
+import { uploadToS3 } from "./uploads.services";
 
 const upload = multer({ storage: memoryStorage() });
 

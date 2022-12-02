@@ -6,8 +6,8 @@ import morgan from "morgan";
 import * as dotenv from "dotenv";
 import "source-map-support/register";
 
-import releasesRouter from "./routes/releases.route";
-import uploadsRouter from "./routes/uploads.route";
+import releasesRouter from "./features/releases/releases.route";
+import uploadsRouter from "./features/uploads/uploads.route";
 
 const app = express();
 dotenv.config();
