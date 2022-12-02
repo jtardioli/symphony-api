@@ -18,11 +18,10 @@ model User {
 }
 
 model Release {
-  id         String  @id @default(uuid())
-  owner      User    @relation(fields: [ownerId], references: [id])
-  ownerId    String
-  artistName String?
-
+  id                String       @id @default(uuid())
+  owner             User         @relation(fields: [ownerId], references: [id])
+  ownerId           String
+  artistName        String?
   description       String?
   image             String?
   isDeployed        Boolean      @default(false)
@@ -45,6 +44,7 @@ model Track {
   artistName String?
   title      String?
   hidden     Boolean
+  position   Int
 }
 
 model Genre {

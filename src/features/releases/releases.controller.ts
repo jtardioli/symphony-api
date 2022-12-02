@@ -1,10 +1,14 @@
 import { prisma } from "../../config/prisma.config";
 import { Request, Response } from "express";
-import { Release } from "@prisma/client";
+import { Release, Track } from "@prisma/client";
+
+interface IRelease extends Release {
+  tracks: Track[];
+}
 
 export const handleCreateRelease = async (req: Request, res: Response) => {
   try {
-    const release: Release = req.body.release;
+    const release: IRelease = req.body.release;
 
     const {
       title,
@@ -14,7 +18,10 @@ export const handleCreateRelease = async (req: Request, res: Response) => {
       maxNumMints,
       mintPrice,
       royaltyPercentage,
+      tracks,
     } = release;
+
+    await prisma.release.deleteMany();
 
     const createdRelease = await prisma.release.create({
       data: {
@@ -26,6 +33,11 @@ export const handleCreateRelease = async (req: Request, res: Response) => {
         releaseType,
         title,
         royaltyPercentage,
+        tracks: {
+          createMany: {
+            data: tracks,
+          },
+        },
       },
     });
 
