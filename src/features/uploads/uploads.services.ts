@@ -27,5 +27,6 @@ export const uploadToS3 = async (file: any, userId: string) => {
     return { fieldname, key };
   } catch (err: any) {
     console.log(`Route:/api/uploads::uploadTos3() - ${err.message}`);
+    throw new Error();
   }
 };
