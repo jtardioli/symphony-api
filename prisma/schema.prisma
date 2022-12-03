@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["filteredRelationCount"]
 }
 
 datasource db {
@@ -31,12 +32,12 @@ model Release {
   releaseType       ReleaseType?
   title             String?
   tracks            Track[]
-  genre             Genre[]
+  genres            Genre[]
 }
 
 model Track {
   id         String   @id @default(uuid())
-  Release    Release? @relation(fields: [releaseId], references: [id])
+  release    Release? @relation(fields: [releaseId], references: [id])
   releaseId  String?
   audio      String?
   owner      User     @relation(fields: [ownerId], references: [id])
@@ -48,9 +49,9 @@ model Track {
 }
 
 model Genre {
-  id      String    @id @default(uuid())
-  name    String
-  Release Release[]
+  id       String    @id @default(uuid())
+  name     String
+  releases Release[]
 }
 
 enum ReleaseType {
