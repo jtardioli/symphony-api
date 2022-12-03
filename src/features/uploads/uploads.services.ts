@@ -18,10 +18,16 @@ export const uploadToS3 = async (file: any, userId: string) => {
       ContentType: file.mimetype,
     });
 
+    /* 
+      Maintain before and after message as uploads can take time
+    */
     console.log(
       `Route:/api/uploads::uploadTos3() - Uploading file "${file.originalname}" to s3`
     );
     await s3.send(command);
+    console.log(
+      `Route:/api/uploads::uploadTos3() - Uploaded file "${file.originalname}" to s3`
+    );
 
     const fieldname = file.fieldname;
     return { fieldname, key };
