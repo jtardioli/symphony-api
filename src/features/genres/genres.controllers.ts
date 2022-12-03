@@ -26,7 +26,12 @@ export const handleGetGenres = async (req: Request, res: Response) => {
       skip: skip,
     });
 
-    res.send(genresWithReleaseCount);
+    const genres = genresWithReleaseCount.map((genre) => {
+      const { id, name, _count } = genre;
+      return { id, name, releaseCount: _count.releases };
+    });
+
+    res.send(genres);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
