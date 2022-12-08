@@ -9,6 +9,8 @@ import "source-map-support/register";
 import releasesRouter from "./features/releases/releases.routes";
 import uploadsRouter from "./features/uploads/uploads.route";
 import genresRouter from "./features/genres/genres.routes";
+import authRouter from "./features/auth/auth.routes";
+import usersRouter from "./features/users/users.routes";
 
 const app = express();
 dotenv.config();
@@ -25,9 +27,11 @@ app.use(morgan("dev"));
 /* 
   Routes
 */
+app.use("/api/auth", authRouter);
 app.use("/api/genres", genresRouter);
 app.use("/api/releases", releasesRouter);
 app.use("/api/uploads", uploadsRouter);
+app.use("/api/users", usersRouter);
 
 app.listen(PORT, () => {
   console.log(`[server] Application Running at http://localhost:${PORT}`);

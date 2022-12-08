@@ -1,11 +1,11 @@
 import { prisma } from "../../config/prisma.config";
 import { Request, Response } from "express";
-import { Release, Track } from "@prisma/client";
-import { IRelease } from "../../ts/release";
+
+import { Release } from "../../interfaces/release";
 
 export const handleCreateRelease = async (req: Request, res: Response) => {
   try {
-    const release: IRelease = req.body.release;
+    const release: Partial<Release> = req.body.release;
 
     const {
       title,
@@ -16,7 +16,10 @@ export const handleCreateRelease = async (req: Request, res: Response) => {
       mintPrice,
       royaltyPercentage,
       tracks,
+      genres,
     } = release;
+
+    await prisma.release.deleteMany();
 
     const createdRelease = await prisma.release.create({
       data: {
@@ -30,16 +33,16 @@ export const handleCreateRelease = async (req: Request, res: Response) => {
         royaltyPercentage,
         tracks: {
           createMany: {
-            data: tracks,
+            data: tracks!,
           },
         },
+        genres: { connect: genres },
       },
     });
 
     console.log(
-      `releases.controller::handleCreateRelease() - Created release ${JSON.stringify(
-        createdRelease
-      )}`
+      "releases.controller::handleCreateRelease() - Created release:",
+      createdRelease
     );
 
     res.sendStatus(200);

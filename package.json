@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --exit-child src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only --inspect=5555 --exit-child src/index.ts"
   },
   "author": "",
   "license": "ISC",

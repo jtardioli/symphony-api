@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { prisma } from "../../config/prisma.config";
 
 /* 
-  Returns all generes with their corresponding number of deployed releases
+  Returns all genres with their corresponding number of deployed releases
 */
 export const handleGetGenres = async (req: Request, res: Response) => {
   try {
@@ -26,6 +26,9 @@ export const handleGetGenres = async (req: Request, res: Response) => {
       skip: skip,
     });
 
+    /* 
+      Replace Prisma's default _count with releaseCount
+    */
     const genres = genresWithReleaseCount.map((genre) => {
       const { id, name, _count } = genre;
       return { id, name, releaseCount: _count.releases };

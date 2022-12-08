@@ -12,10 +12,10 @@ datasource db {
 }
 
 model User {
-  id      String    @id @default(uuid())
-  name    String
-  Release Release[]
-  Track   Track[]
+  id       String    @id @default(uuid())
+  name     String
+  releases Release[]
+  tracks   Track[]
 }
 
 model Release {
