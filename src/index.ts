@@ -2,6 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
+import Session from "express-session";
 
 import * as dotenv from "dotenv";
 import "source-map-support/register";
@@ -23,6 +24,16 @@ app.use(cors({ origin: "*" }));
 app.use(helmet());
 app.use(express.json());
 app.use(morgan("dev"));
+
+app.use(
+  Session({
+    name: "siwe-quickstart",
+    secret: "siwe-quickstart-secret",
+    resave: true,
+    saveUninitialized: true,
+    cookie: { secure: false, sameSite: true },
+  })
+);
 
 /* 
   Routes
