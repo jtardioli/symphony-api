@@ -20,7 +20,7 @@ const PORT = Number(process.env.PORT);
 /* 
   Middlware 
 */
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(helmet());
 app.use(express.json());
 app.use(morgan("dev"));

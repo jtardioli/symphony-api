@@ -15,10 +15,10 @@ declare module "express-session" {
   }
 }
 
-router.get("isAuthenticated/:address", handleCheckAuthentication);
-
 router.get("/nonce", handleGenerateNonce);
 
 router.post("/sign-in", handleSignIn);
+
+router.get("/isAuthenticated/:address", handleCheckAuthentication);
 
 export default router;
