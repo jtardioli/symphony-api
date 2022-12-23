@@ -1,28 +1,45 @@
 import { Request, Response } from "express";
 import { ErrorTypes, generateNonce, SiweMessage } from "siwe";
+import { prisma } from "../../config/prisma.config";
 
-export const handleCheckAuthentication = (req: Request, res: Response) => {
+export const handleCheckAuthentication = async (
+  req: Request,
+  res: Response
+) => {
   try {
     if (!req.session.siwe) {
       res.status(200).send({
-        isAuthenticated: false,
+        isVerified: false,
         address: req.params.address,
       });
       return;
     }
 
-    const isAuthenticated = (req.session.siwe?.addresses || []).includes(
+    const isVerified = (req.session.siwe?.addresses || []).includes(
       req.params.address
     );
 
+    if (isVerified) {
+      const user = await prisma.user.findUnique({
+        where: { address: req.params.address },
+      });
+      console.log("User", user);
+      return res.status(200).send({
+        isVerified: isVerified,
+        address: req.params.address,
+        user,
+      });
+    }
+
     return res.status(200).send({
-      isAuthenticated: isAuthenticated,
+      isVerified: isVerified,
       address: req.params.address,
+      user: null,
     });
   } catch (e) {
     if (e instanceof Error) console.log(`handleCheckAuthentication():: ${e}`);
     res.status(500).send({
-      isAuthenticated: false,
+      isVerified: false,
       address: req.params.address,
     });
   }
@@ -37,7 +54,7 @@ export const handleGenerateNonce = async function (
   res.status(200).send(req.session.nonce);
 };
 
-export const handleSignIn = async function (req: Request, res: Response) {
+export const handleVerification = async function (req: Request, res: Response) {
   try {
     if (!req.body.message) {
       res

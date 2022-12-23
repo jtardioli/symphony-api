@@ -1,9 +1,13 @@
 import express, { Request, Response } from "express";
 import { prisma } from "../../config/prisma.config";
+import { handleCreateUser } from "./users.controllers";
 
 const router = express.Router();
 
-// Create
+// Create user
+router.post("/", handleCreateUser);
+
+// Get individual user
 router.get("/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
 

@@ -3,7 +3,7 @@ import { ErrorTypes, generateNonce, SiweMessage } from "siwe";
 import {
   handleCheckAuthentication,
   handleGenerateNonce,
-  handleSignIn,
+  handleVerification,
 } from "./auth.controllers";
 
 const router = express.Router();
@@ -17,7 +17,7 @@ declare module "express-session" {
 
 router.get("/nonce", handleGenerateNonce);
 
-router.post("/sign-in", handleSignIn);
+router.post("/verify", handleVerification);
 
 router.get("/isAuthenticated/:address", handleCheckAuthentication);
 

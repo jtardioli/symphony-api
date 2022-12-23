@@ -5,12 +5,13 @@ import { Release } from "../../interfaces/release";
 
 export const handleCreateRelease = async (req: Request, res: Response) => {
   try {
-    const release: Partial<Release> = req.body.release;
+    const release: Release = req.body.release;
 
     const {
       title,
       releaseType,
       artistName,
+      ownerId,
       description,
       maxNumMints,
       mintPrice,
@@ -24,7 +25,7 @@ export const handleCreateRelease = async (req: Request, res: Response) => {
     const createdRelease = await prisma.release.create({
       data: {
         description,
-        ownerId: "44bd6780-4ea5-431e-9ce4-1175888cd28e",
+        ownerId,
         artistName,
         maxNumMints,
         mintPrice,
